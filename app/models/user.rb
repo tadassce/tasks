@@ -6,6 +6,19 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
+  # Assign an API key on create
+  before_create do |user|
+    user.api_key = user.generate_api.key
+  end
+
+  # Generate an unique API key
+  def generate_api_key
+    loop do
+      token = SecureRandom.base64.tr('+/=', 'Qrt')
+      break token unless User.exists?(api_key: token)
+    end
+  end
+
   private
 
     def downcase_email
