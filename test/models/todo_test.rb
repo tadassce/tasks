@@ -3,9 +3,8 @@ require 'test_helper'
 class TodoTest < ActiveSupport::TestCase
 
   def setup
-    @user = users(:adnilson)
-    @todo = Todo.create(title: "Finish API", completed: false, order: 1,
-                        category: "work", user_id: @user.id)
+    @user  = users(:adnilson)
+    @todo  = @user.todos.build(title: "Finish API", completed: false, order: 1, category: "work")
   end
   
   test "should be valid" do
