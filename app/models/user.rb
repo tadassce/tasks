@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   # Assign an API key on create
   before_create do |user|
-    user.api_key = user.generate_api.key
+    user.api_key = user.generate_api_key
   end
 
   # Generate an unique API key
