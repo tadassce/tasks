@@ -6,31 +6,31 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get users_url, as: :json
+    get users_url, as: :json, headers: { authorization: "Token token=#{@user.api_key}" }
     assert_response :success
   end
 
   test "should create user" do
     assert_difference('User.count') do
-      post users_url, params: { user: { email: @user.email } }, as: :json
+      post users_url, params: { user: { email: 'tomato@example.org' } }, as: :json
     end
 
     assert_response 201
   end
 
   test "should show user" do
-    get user_url(@user), as: :json
+    get user_url(@user), as: :json, headers: { authorization: "Token token=#{@user.api_key}" }
     assert_response :success
   end
 
   test "should update user" do
-    patch user_url(@user), params: { user: { email: @user.email } }, as: :json
+    patch user_url(@user), params: { user: { email: @user.email } }, as: :json, headers: { authorization: "Token token=#{@user.api_key}" }
     assert_response 200
   end
 
   test "should destroy user" do
     assert_difference('User.count', -1) do
-      delete user_url(@user), as: :json
+      delete user_url(@user), as: :json, headers: { authorization: "Token token=#{@user.api_key}" }
     end
 
     assert_response 204
